@@ -533,6 +533,16 @@ Framework.IsVehicleOwnedByPlayer = function(src, plate)
     return { vehicle = model, plate = plate }
 end
 
+--- @description Returns the citizen identifier of the player who owns the vehicle with the given plate, or nil.
+--- @param plate string
+--- @return string|nil
+Framework.GetVehicleOwner = function(plate)
+    if not plate then return nil end
+    local result = MySQL.query.await("SELECT owner FROM owned_vehicles WHERE plate = ?", { plate })
+    if result and result[1] then return result[1].owner end
+    return nil
+end
+
 ---@description Registers a usable item with a callback function.
 --- @param itemName string
 --- @param cb function
