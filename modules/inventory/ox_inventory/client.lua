@@ -32,7 +32,7 @@ Inventory.GetItemInfo = function(item)
 end
 
 ---@description This will return the entire items table from the inventory.
----@return table 
+---@return table
 Inventory.Items = function()
     return ox_inventory:Items()
 end
@@ -58,8 +58,13 @@ end
 Inventory.GetImagePath = function(item)
     item = Inventory.StripPNG(item)
     local file = LoadResourceFile("ox_inventory", string.format("web/images/%s.png", item))
-    local imagePath = file and string.format("nui://ox_inventory/web/images/%s.png", item)
-    return imagePath or "https://avatars.githubusercontent.com/u/47620135"
+    local imagePathConvar = GetConvar('inventory:imagepath', 'nui://ox_inventory/web/images')
+    if imagePathConvar ~= 'nui://ox_inventory/web/images' then
+        return string.format("%s/%s.png", imagePathConvar, item)
+    else
+        local imagePath = file and string.format("nui://ox_inventory/web/images/%s.png", item)
+        return imagePath or "https://avatars.githubusercontent.com/u/47620135"
+    end
 end
 
 ---@description This will return the players inventory in the format of {name, label, count, slot, metadata}
