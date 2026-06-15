@@ -245,7 +245,16 @@ end)
 ---@description Event handler for when player job is updated in ESX framework
 ---@param data table Job data containing name, label, grade_label, and grade
 RegisterNetEvent('esx:setJob', function(data)
-    TriggerEvent('community_bridge:Client:OnPlayerJobUpdate', data.name, data.label, data.grade_label, data.grade)
+    local isBoss = (data.grade_name == "boss")
+    TriggerEvent('community_bridge:Client:OnPlayerJobUpdate', {
+        jobName = data.name,
+        jobLabel = data.label,
+        gradeName = data.grade_name,
+        gradeLabel = data.grade_label,
+        gradeRank = data.grade,
+        boss = isBoss,
+        onDuty = data.onduty,
+    })
 end)
 
 return Framework

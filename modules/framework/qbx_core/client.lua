@@ -191,7 +191,15 @@ end)
 ---@description Event handler for when player job is updated in QBX Core framework
 ---@param data table Job data containing name, label, and grade information
 RegisterNetEvent('QBCore:Client:OnJobUpdate', function(data)
-    TriggerEvent('community_bridge:Client:OnPlayerJobUpdate', data.name, data.label, data.grade.name, data.grade.level)
+    TriggerEvent('community_bridge:Client:OnPlayerJobUpdate', {
+        jobName = data.name,
+        jobLabel = data.label,
+        gradeName = data.grade.name,
+        gradeLabel = data.grade.name,
+        gradeRank = data.grade.level,
+        boss = data.isboss,
+        onDuty = data.onduty,
+    })
 end)
 
 return Framework

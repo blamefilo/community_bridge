@@ -28,7 +28,7 @@ Framework.GetIsPlayerLoaded = function()
     return LocalPlayer.state.isLoggedIn or false
 end
 
----@description This will return a table of the player data, this will be in the framework format. 
+---@description This will return a table of the player data, this will be in the framework format.
 ---This is mainly for internal bridge use and should be avoided.
 ---@return table
 Framework.GetPlayerData = function()
@@ -265,7 +265,15 @@ end)
 ---@description Event handler for when player job is updated in QB-Core framework
 ---@param data table Job data containing name, label, grade_label, and grade
 RegisterNetEvent('QBCore:Client:OnJobUpdate', function(data)
-    TriggerEvent('community_bridge:Client:OnPlayerJobUpdate', data.name, data.label, data.grade_label, data.grade)
+    TriggerEvent('community_bridge:Client:OnPlayerJobUpdate', {
+        jobName = data.name,
+        jobLabel = data.label,
+        gradeName = data.grade.name,
+        gradeLabel = data.grade.name,
+        gradeRank = data.grade.level,
+        boss = data.isboss,
+        onDuty = data.onduty,
+    })
 end)
 
 return Framework
